@@ -1,0 +1,35 @@
+package day22;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.List;
+
+public class demoblaze {
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        
+
+        // Initialize a new ChromeDriver instance
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the URL
+        driver.get("https://www.demoblaze.com/index.html");
+
+        // Find all anchor tags and store them in a list
+        List<WebElement> links = driver.findElements(By.tagName("a"));
+
+        // Print the number of links found
+        System.out.println("Number of links: " + links.size());
+
+        // Find all image tags and store them in a list
+        List<WebElement> images = driver.findElements(By.tagName("img"));
+
+        // Print the number of images found
+        System.out.println("Number of images: " + images.size());
+        driver.findElement(By.linkText("Contact")).click();
+
+        // Close the browser
+        
+    }
+}
