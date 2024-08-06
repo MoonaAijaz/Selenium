@@ -1,0 +1,27 @@
+package day26;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ConditionalMethods {
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://demo.nopcommerce.com/register?returnUrl=%2F");
+		driver.manage().window().maximize();
+		//driver.findElement(By.xpath("//*[@value='M']")).click();
+		WebElement logo=driver.findElement(By.xpath("/html/body/div[6]/div[1]/div[2]/div[1]/a/img"));
+		System.out.println(logo.isDisplayed());
+        boolean firstname=driver.findElement(By.xpath("//*[@id='FirstName']")).isEnabled();
+        System.out.println(firstname);
+        boolean mlbttnfrstst = driver.findElement(By.xpath("//*[@id='gender-male']")).isSelected();
+        System.out.println(mlbttnfrstst);
+        driver.findElement(By.xpath("//*[@id='gender-male']")).click();
+        boolean mlbttnsec = driver.findElement(By.xpath("//*[@id='gender-male']")).isSelected();
+        System.out.println(mlbttnsec);
+        
+	}
+
+}
