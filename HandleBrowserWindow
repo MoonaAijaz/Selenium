@@ -1,0 +1,44 @@
+package day28;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HandleBrowserWindows {
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		driver.navigate().to("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[3]/div[2]/p[2]/a")).click();
+		Set<String> windowIDs = driver.getWindowHandles();
+        List<String> windowList = new ArrayList<>(windowIDs);
+        
+        String parentWindow = windowList.get(0);
+        String childWindow = windowList.get(1);
+        
+        driver.switchTo().window(childWindow);
+        System.out.println("Child Window Title: " + driver.getTitle());
+        
+        driver.switchTo().window(parentWindow);
+        System.out.println("Parent Window Title: " + driver.getTitle());
+        
+        for (String winID : windowIDs) {
+            String title = driver.switchTo().window(winID).getTitle();
+            if (title.equals("OrangeHRM")) {
+                System.out.println("URL of OrangeHRM Window: " + driver.getCurrentUrl());
+            }
+        }
+        
+        // Optionally close all windows
+        driver.quit();
+    }
+}
+
+
