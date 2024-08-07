@@ -1,0 +1,25 @@
+package day28;
+
+
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class NavigationalCommands {
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.navigate().to("https://demo.nopcommerce.com/");
+		driver.findElement(By.linkText("nopCommerce.com")).click();
+		driver.navigate().back();
+		driver.navigate().forward();
+	    System.out.println(driver.getCurrentUrl());
+	    System.out.println(driver.getTitle());
+	    driver.navigate().refresh();
+		
+
+	}
+
+}
