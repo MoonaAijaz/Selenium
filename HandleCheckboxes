@@ -1,0 +1,72 @@
+package day29;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HandleCheckboxes {
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://testautomationpractice.blogspot.com/");
+		driver.manage().window().maximize();
+		//Select checkbox
+		WebElement checkbox = driver.findElement(By.xpath("//*[@id='sunday']"));
+		System.out.println("id checkbox selected?" + checkbox.isSelected()) ;
+       // driver.findElement(By.xpath("//*[@id='sunday']")).click();
+        System.out.println("id checkbox selected now?" + checkbox.isSelected());
+        //capturing all checkboxes
+		List<WebElement> checkboxes=driver.findElements(By.xpath("//*[@class='form-check-input' and @type='checkbox']"));
+		System.out.println(checkboxes.size());
+		//selecting all the checkboxes
+		/*for (int i = 0;i<checkboxes.size();i++)
+		{
+			checkboxes.get(i).click();
+		}
+		//Enhanced for loop	
+		for ( WebElement m: checkboxes) {
+			
+			m.click();
+		}*/
+		//selecting last two checkboxes
+		/*for (int i =4;i<checkboxes.size();i++)
+			checkboxes.get(i).click();
+		
+		//select first 3 checkboxes
+		for(int i = 0 ;i<3;i++)
+			checkboxes.get(i).click();
+			*/
+		//selecting and unselcting checkboxes
+		for (WebElement k:checkboxes)
+			k.click();
+		for (int i = 0;i<checkboxes.size();i++)
+			checkboxes.get(i).click();
+		for (int i = 0;i<checkboxes.size();i++)
+			if (i == 0 | i == 2|i == 4 |i ==6)
+				checkboxes.get(i).click();
+		checkboxes.clear();
+		String weekname = "Sunday";
+		switch(weekname) {
+		case "Sunday" : driver.findElement(By.xpath("//*[@id='sunday']")).click();
+		                break;
+		case "Monday" : driver.findElement(By.xpath("//*[@id='monday']")).click();
+                        break;
+		case "Tuesday" : driver.findElement(By.xpath("//*[@id='tuesday']")).click();
+                        break;
+		case "Wednesday" : driver.findElement(By.xpath("//*[@id='sunday']")).click();
+                         break;
+		case "Thursday" : driver.findElement(By.xpath("//*[@id='sunday']")).click();
+                         break;            
+		case "Friday" : driver.findElement(By.xpath("//*[@id='sunday']")).click();
+                         break;   
+		case "Saturday" : driver.findElement(By.xpath("//*[@id='sunday']")).click();
+                         break;
+		default:System.out.println("Invalid week name");                
+		}
+	}
+}
