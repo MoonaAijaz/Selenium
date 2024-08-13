@@ -1,0 +1,41 @@
+package day31;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class BootstrapDropDown {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://www.jquery-az.com/boots/demo.php?ex=63.0_2");
+		driver.manage().window().maximize();
+		//select singleoption from dropdown
+		driver.findElement(By.xpath("//button[contains(@class,'multiselect')]")).click();
+		driver.findElement(By.xpath("//input[contains(@value,'Java')]")).click();
+		//capture all the elements and find out size
+		List<WebElement> options=driver.findElements(By.xpath("//ul[contains(@class,'multiselect')]//label//input"));
+		System.out.println(options.size());
+	    System.out.println();
+		/*for (int i = 0;i<options.size();i++) {
+			System.out.println(options.get(i).getText());
+			
+	}*/
+	    //select multiple options.
+	    Thread.sleep(3000);
+	    for (WebElement op:options) {
+	    	String option = op.getText();
+	    	  if (option.equals("Java")||option.equals("Python")||option.equals("MySQL"))
+	    	  {
+	    		  op.click();
+	    	  }
+	    }
+	    
+}
+
+}
