@@ -1,0 +1,89 @@
+package day34;
+
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DatePickerDemo1 {
+    // Selecting future date
+    static void selectFutureDate(WebDriver driver, String month, String year, String date) {
+        while (true) {
+            // Fetching current month and year from the datepicker
+            String currentMonth = driver.findElement(By.xpath("//span[@class='ui-datepicker-month']")).getText();
+            String currentYear = driver.findElement(By.xpath("//span[@class='ui-datepicker-year']")).getText();
+
+            // If the desired month and year are found, break the loop
+            if (currentMonth.equals(month) && currentYear.equals(year)) {
+                break;
+            }
+
+            // Clicking on the "Next" button to navigate to the future month/year
+            driver.findElement(By.xpath("//a[@title='Next']")).click();
+        }
+        List<WebElement> allDates = driver.findElements(By.xpath("//table[@class='ui-datepicker-calendar']//tbody//td/a"));
+
+        // Iterating through the dates and clicking on the desired one
+        for (WebElement dt : allDates) {
+            if (dt.getText().equals(date)) {
+                dt.click();
+                break;
+            }
+        }
+    }
+
+    // Selecting past date
+    static void selectPastDate(WebDriver driver, String month, String year, String date) {
+        while (true) {
+            // Fetching current month and year from the datepicker
+            String currentMonth = driver.findElement(By.xpath("//span[@class='ui-datepicker-month']")).getText();
+            String currentYear = driver.findElement(By.xpath("//span[@class='ui-datepicker-year']")).getText();
+
+            // If the desired month and year are found, break the loop
+            if (currentMonth.equals(month) && currentYear.equals(year)) {
+                break;
+            }
+
+            // Clicking on the "Prev" button to navigate to the previous month/year
+            driver.findElement(By.xpath("//a[@title='Prev']")).click();
+        }
+        List<WebElement> allDates = driver.findElements(By.xpath("//table[@class='ui-datepicker-calendar']//tbody//td/a"));
+
+        // Iterating through the dates and clicking on the desired one
+        for (WebElement dt : allDates) {
+            if (dt.getText().equals(date)) {
+                dt.click();
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+       
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.get("https://jqueryui.com/datepicker/");
+        driver.manage().window().maximize();
+
+        // Switching to the frame containing the datepicker
+        driver.switchTo().frame(0);
+
+        // Method 1: Using sendKeys() to input the date directly
+        driver.findElement(By.xpath("//*[@id='datepicker']")).sendKeys("08/16/2024");
+
+        // Method 2: Using the datepicker UI to select the date
+        driver.findElement(By.xpath("//*[@id='datepicker']")).click();
+        String year = "2025";
+        String month = "May";
+        String date = "10";
+
+        selectFutureDate(driver, month, year, date);
+
+        // Cleanup: closing the browser
+        driver.quit();
+    }
+}
