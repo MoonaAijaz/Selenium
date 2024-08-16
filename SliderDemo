@@ -1,0 +1,29 @@
+package day36;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class SliderDemo {
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://www.jqueryscript.net/demo/Price-Range-Slider-jQuery-UI/");
+		driver.manage().window().maximize();
+		WebElement minslid=driver.findElement(By.xpath("//div[@id='slider-range']//span[1]"));
+		WebElement maxslid=driver.findElement(By.xpath("//div[@id='slider-range']//span[2]"));
+	    System.out.println("Default location of min slider" +minslid.getLocation());
+        
+        Actions act = new Actions(driver);
+        act.dragAndDropBy(minslid, 100, 250).build().perform();
+        System.out.println("Location of min slider after moving: " +minslid.getLocation());
+        System.out.println("Default location of max slider" +maxslid.getLocation());
+        act.dragAndDropBy(maxslid, -76, 250).perform();
+        System.out.println("Location of max slider after moving:" +maxslid.getLocation());
+	}
+}
