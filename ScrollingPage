@@ -1,0 +1,29 @@
+package day37;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ScrollingPage {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.worldometers.info/geography/flags-of-the-world/");
+		driver.manage().window().maximize();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		//scroll down page by pixel number
+		//js.executeScript("window.scrollBy(0,3000)", "");
+		//scroll the page till element is visible
+		WebElement see=driver.findElement(By.xpath("//div/p[3]"));
+		js.executeScript("arguments[0].scrollIntoView();", see);
+		System.out.println(js.executeScript("return window.pageYOffset;"));	
+		//scroll page till end of the page
+		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+		System.out.println(js.executeScript("return window.pageYOffset;"));
+		Thread.sleep(3000);
+		js.executeScript("window.scrollBy(0,-document.body.scrollHeight)");
+		System.out.println(js.executeScript("return window.pageYOffset;"));
+	}
+}
