@@ -1,0 +1,34 @@
+package day38;
+
+import java.io.File;
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class CaptureScreenshots {
+
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get("https://opensource-demo.orangehrmlive.com/");
+		driver.manage().window().maximize();
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File sourcefile=ts.getScreenshotAs(OutputType.FILE);
+		File targetfile=new File(System.getProperty("user.dir")+"\\screenshots\\Myfullpage.png");
+		sourcefile.renameTo(targetfile);
+		//capture the screenshot of specific section
+		WebElement section =driver.findElement(By.xpath("//div[@class='orangehrm-login-slot-wrapper']"));
+		File sectionfile=section.getScreenshotAs(OutputType.FILE);
+		File targetedfile=new File(System.getProperty("user.dir")+"\\screenshots\\Mysecpage.png");
+		sectionfile.renameTo(targetedfile);
+		WebElement logo=driver.findElement(By.xpath("//img[@alt='company-branding']"));
+		File logofile=section.getScreenshotAs(OutputType.FILE);
+		File targfile=new File(System.getProperty("user.dir")+"\\screenshots\\Mylogo.png");
+		sectionfile.renameTo(targetedfile);	
+	}
+}
